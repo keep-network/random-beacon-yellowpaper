@@ -122,6 +122,8 @@ broadcast(messagePhase3(encryptedShares, self.commitments))
 #     DQ if payload absent
 # - the length of each payload must be: 2 * G1_SCALAR_LENGTH + MAC_LENGTH
 #     DQ if a payload has incorrect length
+# - P_i must be able to decrypt the payload received from P_j
+#     DQ if payload cannot be decrypted
 #
 messages.receive(3)
 
@@ -130,11 +132,18 @@ shareComplaints = []
 for j in goodParticipants[4], j != i:
     k_ij = self.symkey[j]
 
+    if not validPayload(
+        senderIndex = j,
+        recipientIndex = i,
+    ):
+        X_ij = self.ephemeralKey[j]
+        shareComplaints.append(shareComplaint(j, X_ij))
+
     validShares = decryptAndValidateShares(
         senderIndex = j,
         recipientIndex = i,
         symkey = k_ij
-     )
+    )
 
     if not validShares:
         X_ij = self.ephemeralKey[j]
