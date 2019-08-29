@@ -119,7 +119,7 @@ def checkShareConsistency(
     C_i = commitments(i)
 
     C_ecSum = ecSum(
-        [ C_i[k].scalarMult(j^k) for k in [0..M] ]
+        [ C_i[k].scalarMult(j^k) for k in [0..T] ]
     )
 
     sharesValid = ecCommit(share_S, share_T) == C_ecSum
