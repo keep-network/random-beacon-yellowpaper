@@ -323,8 +323,7 @@ broadcast(messagePhase10(disqualifiedKeys))
 #     IA if no message sent
 #
 # Validate:
-# - all expected private keys of disqualified members
-#     which have sent valid shares in phase 4 are revealed
+# - all private keys of members disqualified after phase 5
 #     DQ if number of keys is incorrect
 # - each revealed private key must be a valid scalar for ECDH
 #     DQ if a private key is invalid
